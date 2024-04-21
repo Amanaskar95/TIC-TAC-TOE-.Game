@@ -1,85 +1,19 @@
-// TIC-TAC-TOE-.Game
+Imagine you and a friend are playing Tic-Tac-Toe on a piece of paper. In this Java program, the game is played between two players, and the computer helps you manage the game.
 
+##  Player Class (Player.java):
+Each player has a name (like "Player 1" or "Player 2") and a symbol they use (either X or O).
+When you create a player, you give them a name and a symbol.
 
-package TicTacToeGames;
+## Board Class (Board.java):
+The game board is like a grid on your piece of paper.
+It's a 3x3 grid where you can place Xs and Os.
+The board keeps track of where the Xs and Os are placed and checks if someone has won or if the game is a draw.
 
-import java.util.Scanner;
+## TicTacToe Class (TicTacToe.java):
+This is like the game manager.
+It starts the game, sets up the players, and manages the game flow.
+It asks players to take turns, places their symbols on the board, and checks if someone has won or if it's a draw.
 
-public class TicTocToe {
-
-	private Player player1, player2;
-	private Board board;
-
-
-	public static void main(String args[]) {
-		TicTocToe t = new TicTocToe();
-		t.startGame();
-	}
-	
-	public void startGame() {
-
-		// Player input	lene ka kaam	
-		Scanner s = new Scanner(System.in);
-		player1 = takePlayerInput(1);
-		player2 = takePlayerInput(2);
-		while(player1.getSymbol() == player2.getSymbol()) {
-			System.out.println("Symbol Already taken !! Pick another symbol !!");
-			char symbol = s.next().charAt(0);
-			player2.setSymbol(symbol);
-		}
-
-		// Create Board taaki oos par game khel sake
-		board = new Board(player1.getSymbol(), player2.getSymbol());
-
-		// Conduct the Game  game khelane ke liye
-		boolean player1Turn = true;
-		int status = Board.INCOMPLETE;
-		while(status == Board.INCOMPLETE || status == Board.INVALID) {
-			if(player1Turn) {
-				System.out.println("Player 1 - " + player1.getName() + "'s turn");
-				System.out.println("Enter x: ");
-				int x = s.nextInt();
-				System.out.println("Enter y: ");
-				int y = s.nextInt();
-				status = board.move(player1.getSymbol(), x, y);
-				if(status != Board.INVALID)	{		
-					player1Turn = false;
-					board.print();
-				} else {
-					System.out.println("INVALID Move !! Try Again !!");
-				}
-
-			} else {
-				System.out.println("Player 2 - " + player2.getName() + "'s turn");
-				System.out.println("Enter x: ");
-				int x = s.nextInt();
-				System.out.println("Enter y: ");
-				int y = s.nextInt();
-				status = board.move(player2.getSymbol(), x, y);
-				if(status != Board.INVALID) {
-					player1Turn = true;	
-					board.print();
-				}else {
-					System.out.println("INVALID Move !! Try Again !!");
-				}
-			}
-		}
-		if (status == Board.PLAYER_1_WINS){
-			System.out.println("Player 1 - " + player1.getName() + " wins !!");
-		} else if (status == Board.PLAYER_2_WINS){
-			System.out.println("Player 2 - " + player2.getName() + " wins !!");
-		} else {
-			System.out.println("Draw !!");
-		}
-	}
-	private Player takePlayerInput(int num) {
-		Scanner s = new Scanner(System.in);
-		System.out.println("Enter Player" + num + " name: ");
-		String name = s.nextLine();
-		System.out.println("Enter Player" + num + " Symbol: ");
-		char symbol = s.next().charAt(0);
-		Player p = new Player(name,symbol);
-		return p;
-	}
-
-}
+## Main Method:
+This is where the game starts.
+It creates the game manager and begins the game.
